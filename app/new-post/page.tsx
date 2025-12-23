@@ -1,8 +1,12 @@
 export default function NewPostPage() {
+  function createPost(formData: FormData) {
+    console.log(formData);
+  }
+
   return (
     <>
       <h1>Create a new post</h1>
-      <form>
+      <form method="post" action={createPost}>
         <p className="form-control">
           <label htmlFor="title">Title</label>
           <input type="text" id="title" name="title" />
@@ -18,7 +22,7 @@ export default function NewPostPage() {
         </p>
         <p className="form-control">
           <label htmlFor="content">Content</label>
-          <textarea id="content" name="content" rows="5" />
+          <textarea id="content" name="content" rows={5} />
         </p>
         <p className="form-actions">
           <button type="reset">Reset</button>
