@@ -1,6 +1,18 @@
-export default function NewPostPage() {
-  function createPost(formData: FormData) {
+import { addPost } from "@/lib/actions";
+
+export default async function NewPostPage() {
+  async function createPost(formData: FormData) {
+    "use server";
     console.log(formData);
+
+    const post = {
+      title: formData.get("title")?.toString() || "",
+      image: formData.get("image"),
+      content: formData.get("content")?.toString() || "",
+      userId: 123,
+    };
+
+    await addPost(post);
   }
 
   return (
