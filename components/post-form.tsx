@@ -25,7 +25,7 @@ export default function PostForm({ action }) {
         <textarea id="content" name="content" rows={5} required />
       </p>
       <FormSubmit />
-      {state.errors.lenght && (
+      {state?.errors?.lenght && (
         <ul>
           {state.errors.map((error) => (
             <li key={error}>{error}</li>

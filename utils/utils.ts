@@ -22,3 +22,7 @@ export function formatDate(date: string | number | Date) {
     timeStyle: "short",
   }).format(new Date(date));
 }
+
+export function isInvalidText(text: string) {
+  return !text || text.trim() === "";
+}

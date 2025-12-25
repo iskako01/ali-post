@@ -1,4 +1,4 @@
-import { formatDate } from "@/lib/format";
+import { formatDate } from "@/utils/utils";
 import LikeButton from "./like-icon";
 import Image from "next/image";
 
@@ -6,7 +6,7 @@ export default function Post({ post }) {
   return (
     <article className="post">
       <div className="post-image">
-        <Image src={post.image} alt={post.title} />
+        <Image src={post.image} alt={post.title} width={200} height={200} />
       </div>
       <div className="post-content">
         <header>

@@ -1,0 +1,56 @@
+"use server";
+
+import { isInvalidText } from "@/utils/utils";
+import { redirect } from "next/navigation";
+import { storePost } from "@/lib/post";
+import { uploadImage } from "@/lib/cloudinary";
+
+interface IPost {
+  id?: number;
+  image: File;
+  title: string;
+  content: string;
+  createdAt?: string;
+  userId: number;
+}
+
+export async function createPost(prevState, formData: FormData) {
+  const image = formData.get("image") as File;
+  const title = formData.get("title")?.toString() || "";
+  const content = formData.get("content")?.toString() || "";
+  const userId = 1; // TODO Add userId;
+  let imageUrl = "";
+
+  const errors: string[] = [];
+
+  if (isInvalidText(title)) {
+    errors.push("Title is required.");
+  }
+
+  if (isInvalidText(content)) {
+    errors.push("Content is required.");
+  }
+
+  if (!image || image.size === 0) {
+    errors.push("Image is required.");
+  }
+
+  if (errors.length) {
+    return { errors };
+  }
+
+  try {
+    imageUrl = await uploadImage(image);
+  } catch (error) {
+    throw new Error("Image upload failed. Please try again.");
+  }
+
+  await storePost({
+    imageUrl,
+    title,
+    content,
+    userId,
+  });
+
+  redirect("/feed");
+}
