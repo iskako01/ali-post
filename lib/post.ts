@@ -31,6 +31,10 @@ export async function storePost(post) {
 }
 
 export async function updatePostLikeStatus(postId, userId) {
+  if (!postId || !userId) {
+    throw new Error("postId or userId is missing");
+  }
+
   const stmt = db.prepare(`
     SELECT COUNT(*) AS count
     FROM likes

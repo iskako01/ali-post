@@ -1,10 +1,10 @@
 "use server";
 
-import { isInvalidText } from "@/utils/utils";
 import { redirect } from "next/navigation";
 import { storePost, updatePostLikeStatus } from "@/lib/post";
 import { uploadImage } from "@/lib/cloudinary";
 import { revalidatePath } from "next/cache";
+import { isInvalidText } from "@/utils/utils.client";
 
 interface IPost {
   id?: number;

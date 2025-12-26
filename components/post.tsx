@@ -1,8 +1,8 @@
-import { formatDate } from "@/utils/utils";
+import { formatDate } from "@/utils/utils.client";
 import LikeButton from "./like-button";
 import Image from "next/image";
 
-export default function Post({ post }) {
+export default function Post({ post, updatePost }) {
   return (
     <article className="post">
       <div className="post-image">
@@ -21,7 +21,7 @@ export default function Post({ post }) {
           </div>
           <div className={post?.isLiked ? "liked" : ""}>
             {/* TODO: Fix userId */}
-            <LikeButton postId={post.id} userId={2} />
+            <LikeButton updatePost={updatePost} />
           </div>
         </header>
         <p>{post.content}</p>
