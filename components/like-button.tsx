@@ -1,6 +1,13 @@
-export default function LikeButton() {
+"use client";
+
+import { togglePostLikeStatus } from "@/actions/post";
+
+export default function LikeButton({ postId, userId }) {
   return (
-    <button className="like-button">
+    <button
+      className="like-button"
+      onClick={() => togglePostLikeStatus(postId, userId)}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

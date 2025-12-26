@@ -2,8 +2,9 @@
 
 import { isInvalidText } from "@/utils/utils";
 import { redirect } from "next/navigation";
-import { storePost } from "@/lib/post";
+import { storePost, updatePostLikeStatus } from "@/lib/post";
 import { uploadImage } from "@/lib/cloudinary";
+import { revalidatePath } from "next/cache";
 
 interface IPost {
   id?: number;
@@ -53,4 +54,10 @@ export async function createPost(prevState, formData: FormData) {
   });
 
   redirect("/feed");
+}
+
+export async function togglePostLikeStatus(postId: number, userId: number) {
+  await updatePostLikeStatus(postId, userId);
+
+  revalidatePath("/feed");
 }

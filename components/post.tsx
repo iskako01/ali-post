@@ -1,5 +1,5 @@
 import { formatDate } from "@/utils/utils";
-import LikeButton from "./like-icon";
+import LikeButton from "./like-button";
 import Image from "next/image";
 
 export default function Post({ post }) {
@@ -19,8 +19,9 @@ export default function Post({ post }) {
               </time>
             </p>
           </div>
-          <div>
-            <LikeButton />
+          <div className={post?.isLiked ? "liked" : ""}>
+            {/* TODO: Fix userId */}
+            <LikeButton postId={post.id} userId={2} />
           </div>
         </header>
         <p>{post.content}</p>
