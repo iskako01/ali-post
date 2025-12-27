@@ -1,8 +1,14 @@
 import { formatDate } from "@/utils/utils.client";
 import LikeButton from "./like-button";
 import Image from "next/image";
+import { IPost } from "@/interfaces/post";
 
-export default function Post({ post, updatePost }) {
+interface IProps {
+  post: IPost;
+  updatePost: () => void;
+}
+
+export default function Post({ post, updatePost }: IProps) {
   return (
     <article className="post">
       <div className="post-image">
@@ -14,9 +20,11 @@ export default function Post({ post, updatePost }) {
             <h2>{post.title}</h2>
             <p>
               Shared by {post.userFirstName} on{" "}
-              <time dateTime={post.createdAt}>
-                {formatDate(post.createdAt)}
-              </time>
+              {post.createdAt && (
+                <time dateTime={post.createdAt}>
+                  {formatDate(post.createdAt)}
+                </time>
+              )}
             </p>
           </div>
           <div className={post?.isLiked ? "liked" : ""}>

@@ -2,9 +2,14 @@
 
 import { togglePostLikeStatus } from "@/actions/post";
 import Post from "@/components/post";
+import { IPost } from "@/interfaces/post";
 import { useOptimistic, startTransition } from "react";
 
-export default function Posts({ posts }) {
+interface IProps {
+  posts: IPost[];
+}
+
+export default function Posts({ posts }: IProps) {
   const [optimisticPosts, updateOptimisticPosts] = useOptimistic(
     posts,
     (prevPosts, updatedPostId) => {

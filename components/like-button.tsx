@@ -1,6 +1,6 @@
 "use client";
 
-export default function LikeButton({ updatePost }) {
+export default function LikeButton({ updatePost }: { updatePost: () => void }) {
   return (
     <button className="like-button" onClick={updatePost}>
       <svg

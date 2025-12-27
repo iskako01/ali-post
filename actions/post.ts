@@ -6,15 +6,6 @@ import { uploadImage } from "@/lib/cloudinary";
 import { revalidatePath } from "next/cache";
 import { isInvalidText } from "@/utils/utils.client";
 
-interface IPost {
-  id?: number;
-  image: File;
-  title: string;
-  content: string;
-  createdAt?: string;
-  userId: number;
-}
-
 export async function createPost(prevState, formData: FormData) {
   const image = formData.get("image") as File;
   const title = formData.get("title")?.toString() || "";
