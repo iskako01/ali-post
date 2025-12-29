@@ -23,6 +23,16 @@ export default function Header() {
               New Post
             </Link>
           </li>
+          <li>
+            <Link className="cta-link" href="/messages">
+              Messages
+            </Link>
+          </li>
+          <li>
+            <Link className="cta-link" href="/messages/new">
+              New Message
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>
