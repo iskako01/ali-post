@@ -5,11 +5,7 @@ interface IProps {
 }
 
 export default async function MessagesLayout({ children }: IProps) {
-  const response = await fetch("http://localhost:8080/messages", {
-    headers: {
-      "X-ID": "layout",
-    },
-  });
+  const response = await fetch("http://localhost:8080/messages", {});
   const messages = await response.json();
   const totalMessages = messages.length;
 

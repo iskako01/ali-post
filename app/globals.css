@@ -205,3 +205,11 @@ main {
 .liked .like-button:hover svg {
   fill: transparent;
 }
+
+.messages li {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 6px;
+  background-color: #2f2b2d;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+}
