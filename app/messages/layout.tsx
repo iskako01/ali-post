@@ -5,8 +5,8 @@ interface IProps {
   children: ReactNode;
 }
 
-export default function MessagesLayout({ children }: IProps) {
-  const messages = getDirectMessagesFromDB(); // await getMessagesFromBE();
+export default async function MessagesLayout({ children }: IProps) {
+  const messages = await getDirectMessagesFromDB(); // await getMessagesFromBE();
   const totalMessages = messages.length;
 
   return (

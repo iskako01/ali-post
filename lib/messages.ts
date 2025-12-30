@@ -1,4 +1,5 @@
 import sql from "better-sqlite3";
+import { unstable_cache } from "next/cache";
 import { cache } from "react";
 
 const db = new sql("messages.db");
@@ -7,11 +8,11 @@ export async function addMessage(message: string) {
   db.prepare("INSERT INTO messages (text) VALUES (?)").run(message);
 }
 
-export const getDirectMessagesFromDB = cache(
-  function getDirectMessagesFromDB() {
+export const getDirectMessagesFromDB = unstable_cache(
+  cache(function getDirectMessagesFromDB() {
     console.log("Fetching messages from db");
     return db.prepare("SELECT * FROM messages").all();
-  }
+  })
 );
 
 export async function getMessagesFromBE() {

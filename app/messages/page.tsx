@@ -5,7 +5,7 @@ import { getMessagesFromBE, getDirectMessagesFromDB } from "@/lib/messages";
 // export const dynamic = "force-dynamic";
 
 export default async function MessagesPage() {
-  const messages = getDirectMessagesFromDB(); // await getMessagesFromBE();
+  const messages = await getDirectMessagesFromDB(); // await getMessagesFromBE();
 
   if (!messages || messages.length === 0) {
     return <p>No messages found</p>;
