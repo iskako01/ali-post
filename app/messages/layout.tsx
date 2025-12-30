@@ -1,3 +1,4 @@
+import { fetchMessages } from "@/lib/messages";
 import { ReactNode } from "react";
 
 interface IProps {
@@ -5,8 +6,7 @@ interface IProps {
 }
 
 export default async function MessagesLayout({ children }: IProps) {
-  const response = await fetch("http://localhost:8080/messages", {});
-  const messages = await response.json();
+  const messages = await fetchMessages();
   const totalMessages = messages.length;
 
   return (

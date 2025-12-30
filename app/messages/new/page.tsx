@@ -1,16 +1,6 @@
-import { redirect } from "next/navigation";
-
-import { addMessage } from "@/lib/messages";
+import { createMessage } from "@/actions/message";
 
 export default function NewMessagePage() {
-  async function createMessage(formData: FormData) {
-    "use server";
-
-    const message = formData.get("message") || "";
-    addMessage(message as string);
-    redirect("/messages");
-  }
-
   return (
     <>
       <h2>New Message</h2>
