@@ -1,12 +1,12 @@
-import { fetchMessages } from "@/lib/messages";
+import { getMessagesFromBE, getDirectMessagesFromDB } from "@/lib/messages";
 import { ReactNode } from "react";
 
 interface IProps {
   children: ReactNode;
 }
 
-export default async function MessagesLayout({ children }: IProps) {
-  const messages = await fetchMessages();
+export default function MessagesLayout({ children }: IProps) {
+  const messages = getDirectMessagesFromDB(); // await getMessagesFromBE();
   const totalMessages = messages.length;
 
   return (
