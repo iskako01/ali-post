@@ -8,11 +8,26 @@ interface IProps {
   updatePost: () => void;
 }
 
+function imageLoader(config) {
+  if (!config.src) {
+    return;
+  }
+
+  const splitedUrl = config.src.split("upload/");
+
+  const urlStart = splitedUrl[0];
+  const urlEnd = splitedUrl[1];
+
+  const transformations = `w_200.h_150,q_`
+
+  return config.src;
+}
+
 export default function Post({ post, updatePost }: IProps) {
   return (
     <article className="post">
       <div className="post-image">
-        <Image src={post.image} alt={post.title} width={200} height={200} />
+        <Image src={post.image} loader={} alt={post.title} fill />
       </div>
       <div className="post-content">
         <header>
