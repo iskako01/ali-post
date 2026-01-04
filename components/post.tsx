@@ -1,4 +1,4 @@
-import { formatDate } from "@/utils/utils.client";
+import { formatDate, imageLoader } from "@/utils/utils.client";
 import LikeButton from "./like-button";
 import Image from "next/image";
 import { IPost } from "@/interfaces/post";
@@ -8,26 +8,18 @@ interface IProps {
   updatePost: () => void;
 }
 
-function imageLoader(config) {
-  if (!config.src) {
-    return;
-  }
-
-  const splitedUrl = config.src.split("upload/");
-
-  const urlStart = splitedUrl[0];
-  const urlEnd = splitedUrl[1];
-
-  const transformations = `w_200.h_150,q_`
-
-  return config.src;
-}
-
 export default function Post({ post, updatePost }: IProps) {
   return (
     <article className="post">
       <div className="post-image">
-        <Image src={post.image} loader={} alt={post.title} fill />
+        <Image
+          src={post.image}
+          loader={imageLoader}
+          alt={post.title}
+          width={200}
+          height={120}
+          quality={50}
+        />
       </div>
       <div className="post-content">
         <header>
