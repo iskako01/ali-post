@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 
 import Posts from "@/components/posts";
+import AuthForm from "@/components/auth-form";
 import { getPosts } from "@/lib/post";
 
 export const metadata = {
@@ -18,6 +19,7 @@ export default async function Home() {
     <>
       <h1>Welcome back!</h1>
       <p>Here&apos;s what you might&apos;ve missed.</p>
+      <AuthForm />;
       <section id="latest-posts">
         <Suspense fallback={<p>Loading recent posts...</p>}>
           <LatestPosts />

@@ -34,6 +34,11 @@ export default function Header() {
               New Message
             </Link>
           </li>
+          <li>
+            <Link className="cta-link" href="/training">
+              Training
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>
