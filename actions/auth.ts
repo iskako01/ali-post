@@ -2,6 +2,7 @@
 
 import { createUser } from "@/lib/user";
 import { isInvalidText } from "@/utils/utils.client";
+import { hashUserPassword } from "@/utils/utils.server";
 
 export async function signup(prevState, formData: FormData) {
   const email = formData.get("email") as string;
@@ -24,5 +25,7 @@ export async function signup(prevState, formData: FormData) {
     return { errors };
   }
 
-  createUser(email, password);
+  const hashedPassword = hashUserPassword(password);
+
+  createUser(email, hashedPassword);
 }
