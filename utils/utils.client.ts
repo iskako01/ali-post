@@ -13,7 +13,7 @@ export function formatDate(date: string | number | Date) {
 }
 
 export function isInvalidText(text: string) {
-  return !text || text.trim() === "";
+  return !text || text.trim().length < 0;
 }
 
 export function imageLoader(

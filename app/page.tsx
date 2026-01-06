@@ -19,7 +19,7 @@ export default async function Home() {
     <>
       <h1>Welcome back!</h1>
       <p>Here&apos;s what you might&apos;ve missed.</p>
-      <AuthForm />;
+      <AuthForm />
       <section id="latest-posts">
         <Suspense fallback={<p>Loading recent posts...</p>}>
           <LatestPosts />
