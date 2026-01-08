@@ -2,6 +2,7 @@ import { Lucia } from "lucia";
 import { BetterSqlite3Adapter } from "@lucia-auth/adapter-sqlite";
 import db from "./traningdb";
 import { cookies } from "next/headers";
+import { error } from "console";
 
 const adapter = new BetterSqlite3Adapter(db, {
   user: "users",
@@ -32,6 +33,16 @@ export async function createSessionCookie(sessionId: string) {
   );
 }
 
+export async function createBlankSessionCookie() {
+  const blankSessionCookie = lucia.createBlankSessionCookie();
+
+  (await cookies()).set(
+    blankSessionCookie.name,
+    blankSessionCookie.value,
+    blankSessionCookie.attributes
+  );
+}
+
 export async function verifyAuth() {
   const sessionCookie = (await cookies()).get(lucia.sessionCookieName);
 
@@ -59,15 +70,22 @@ export async function verifyAuth() {
     }
 
     if (!result.session) {
-      const blankSessionCookie = lucia.createBlankSessionCookie();
-
-      (await cookies()).set(
-        blankSessionCookie.name,
-        blankSessionCookie.value,
-        blankSessionCookie.attributes
-      );
+      await createBlankSessionCookie();
     }
   } catch {}
 
   return result;
+}
+
+export async function destroySession() {
+  const { session } = await verifyAuth();
+
+  if (!session) {
+    return {
+      error: "Unauthorized",
+    };
+  }
+
+  await lucia.invalidateSession(session.id);
+  await createBlankSessionCookie();
 }

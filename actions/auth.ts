@@ -1,6 +1,6 @@
 "use server";
 
-import { createAuthSession } from "@/lib/auth";
+import { createAuthSession, destroySession } from "@/lib/auth";
 import { createUser, getUserByEmail } from "@/lib/user";
 import { isInvalidText } from "@/utils/utils.client";
 import { hashUserPassword, verifyPassword } from "@/utils/utils.server";
@@ -102,4 +102,10 @@ export async function auth(mode: string, prevState, formData: FormData) {
   if (mode === "signup") {
     return signup(prevState, formData);
   }
+}
+
+export async function logout() {
+  await destroySession();
+
+  redirect("/");
 }
