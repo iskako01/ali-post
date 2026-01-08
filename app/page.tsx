@@ -14,12 +14,14 @@ async function LatestPosts() {
   return <Posts posts={latestPosts} />;
 }
 
-export default async function Home() {
+export default async function Home({ searchParams }) {
+  const formMode = (await searchParams).mode || "login";
+
   return (
     <>
       <h1>Welcome back!</h1>
       <p>Here&apos;s what you might&apos;ve missed.</p>
-      <AuthForm />
+      <AuthForm mode={formMode} />
       <section id="latest-posts">
         <Suspense fallback={<p>Loading recent posts...</p>}>
           <LatestPosts />

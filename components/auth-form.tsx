@@ -5,9 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useActionState } from "react";
 
-export default function AuthForm() {
+export default function AuthForm({ mode }) {
   const [state, formAction] = useActionState(signup, {});
-  console.log({ state });
 
   return (
     <form className="auth-form" action={formAction}>
@@ -30,10 +29,18 @@ export default function AuthForm() {
         {state?.errors?.password && <p>{state.errors.password}</p>}
       </p>
       <p>
-        <button type="submit">Create Account</button>
+        <button type="submit">
+          {mode === "login" ? "Login" : "Create Account"}
+        </button>
       </p>
       <p>
-        <Link href="/">Login with existing account.</Link>
+        {mode === "login" && (
+          <Link href="/?mode=signup">Create an account.</Link>
+        )}
+
+        {mode === "signup" && (
+          <Link href="/?mode=login">Login with existing account.</Link>
+        )}
       </p>
     </form>
   );
