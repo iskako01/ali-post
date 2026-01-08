@@ -1,9 +1,9 @@
 "use server";
 
 import { createAuthSession } from "@/lib/auth";
-import { createUser } from "@/lib/user";
+import { createUser, getUserByEmail } from "@/lib/user";
 import { isInvalidText } from "@/utils/utils.client";
-import { hashUserPassword } from "@/utils/utils.server";
+import { hashUserPassword, verifyPassword } from "@/utils/utils.server";
 import { redirect } from "next/navigation";
 
 export async function signup(prevState, formData: FormData) {
@@ -46,5 +46,60 @@ export async function signup(prevState, formData: FormData) {
     }
 
     throw error;
+  }
+}
+
+export async function login(prevState, formData: FormData) {
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+
+  const errors = {
+    email: "",
+    password: "",
+  };
+
+  if (isInvalidText(email) && !email.includes("@")) {
+    errors.email = "Please enter a valid email address.";
+  }
+
+  if (isInvalidText(password)) {
+    errors.password = "Password must be at least 8 characters long.";
+  }
+
+  if (errors.email || errors.password) {
+    return { errors };
+  }
+
+  const existingUser = getUserByEmail(email);
+
+  if (!existingUser) {
+    return {
+      errors: {
+        email: "Could not authenticate user, please check your credentials.",
+      },
+    };
+  }
+
+  const isValidPassword = verifyPassword(existingUser.password, password);
+
+  if (!isValidPassword) {
+    return {
+      errors: {
+        password: "Could not authenticate user, please check your credentials.",
+      },
+    };
+  }
+
+  await createAuthSession(existingUser.id);
+  redirect("/training");
+}
+
+export async function auth(mode: string, prevState, formData: FormData) {
+  if (mode === "login") {
+    return login(prevState, formData);
+  }
+
+  if (mode === "signup") {
+    return signup(prevState, formData);
   }
 }
